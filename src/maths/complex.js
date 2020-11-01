@@ -148,7 +148,7 @@ const complex = {
     }
     return `${reString}${operator}${imString}`
   },
-  
+
   /**
    * @param {string} s string representation of complex number: a+bi
    * @returns {Object} complex number
@@ -451,6 +451,29 @@ const complex = {
       return this.create(c, 0)
     }
     throw Error(`abs ${ERRORS.isNanOrNotComplexError(c)}`)
+  },
+
+  /**
+   * Returns rotor q = cos(o) + i*sin(o)
+   * @param {number} o angle
+   * @returns {Object} rotor
+   */
+  rotor(o) {
+    if(!common.isScalar(o)) {
+      throw Error(`rotor ${ERRORS.isNanError(o)}`)
+    }
+    return this.create(Math.cos(o), Math.sin(o))
+  },
+  /**
+   * Rotates a complex number by the angle o (using Math.PI notation ??)
+   * 
+   * @param {number} o angle
+   * @param {Object} c complex number (point c)
+   * @returns {Object} rotated point c'
+   */
+  rotate(c, o) {
+    const rotor = this.rotor(o)
+    return this.mult(rotor, c)
   },
 }
 

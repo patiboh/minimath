@@ -231,6 +231,20 @@ function testComplex() {
   }
   test_abs()
 
+  function test_rotate() {
+    const angle = Math.PI/2 // 90°
+    const im = complex.Im() 
+    const point = complex.create(2, 1) 
+    const rotate_rotor_actual = complex.rotate(point, angle)
+    const rotate_complex_plane_actual = complex.mult(point, im)
+    const rotate_expected = complex.create(-1, 2)
+    const results = [
+      [rotate_rotor_actual, rotate_expected],
+      [rotate_complex_plane_actual, rotate_expected],
+    ]
+    assert(results, complex, complex.equals, complex.rotate)
+  }
+  test_rotate()
 }
 
 testCommon()
