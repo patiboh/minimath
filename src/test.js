@@ -101,6 +101,9 @@ function testComplex() {
     const create_expected_im = -4
     const create_expected_value = "5 - 4i"
     const results = [
+      [i.re, COMPLEX.re],
+      [i.im, COMPLEX.im],
+      [i.value, COMPLEX.value],
       [create_actual.re, create_expected_re],
       [create_actual.im, create_expected_im],
       [create_actual.value, create_expected_value],
@@ -108,6 +111,28 @@ function testComplex() {
     assert(results, complex, common.equals, complex.create)
   }
   test_create()
+
+  function test_equals() {
+    const equals_actual = complex.create(5, -4)
+    const equals_expected = {
+      re: 5,
+      im: -4,
+      value: "5 - 4i"
+    }
+    const equals_zero_re = 0
+    const equals_zero_im = {
+      re: 0,
+      im: 0,
+      value: "0"
+    }
+    const results = [
+      [i, COMPLEX],
+      [equals_zero_re, equals_zero_im],
+      [equals_actual, equals_expected],
+    ]
+    assert(results, complex, complex.equals, complex.equals)
+  }
+  test_equals()
 
   function test_fromString() {
     const S = B //(4+3i)
