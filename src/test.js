@@ -86,6 +86,7 @@ function testComplex() {
   const B2 = complex.create(7,24) //(4+3i)*(4+3i)
   const B3 = complex.create(-44,117) //(4+3i)*(4+3i)*(4+3i)
   const C = complex.create(2,1)
+  const G = complex.create(8,-6)
 
   const M_POS = complex.create(12,9) //3*(4+3i)
   const M_NEG = complex.create(-12,-9) //-3*(4+3i)
@@ -159,6 +160,17 @@ function testComplex() {
     assert(results, complex, complex.equals, complex.div)
   }
   test_div()
+
+  function test_sqrt() {
+    const sqrt_G_actual = complex.sqrt(G)
+    const sqrt_G_expected = complex.create(3, -1)
+    const results = [
+      [sqrt_G_actual, sqrt_G_expected],
+    ]
+    assert(results, complex, complex.equals, complex.sqrt)
+  }
+  test_sqrt()
+
 }
 
 testCommon()

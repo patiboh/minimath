@@ -50,6 +50,20 @@ const complex = {
     }
     return this._Im
   },
+
+  /**
+   * Imaginary constant sqrt(i)
+   * @returns {Object} complex number
+   */
+  SqrtIm() {
+    if(!this._SqrtIm) {
+      const re = 1/Math.sqrt(2)
+      const im = 1/Math.sqrt(2)
+      this._sqrtIm = this.create(re, im)
+    }
+    return this._SqrtIm
+  },
+  
   /**
    * @param {number|Object} n
    * @returns {boolean}
@@ -251,7 +265,7 @@ const complex = {
     }
     throw Error(`conjugate ${ERRORS.isNanOrNotComplexError(c)}`)
   },
-  
+
   /**
    * @param {Object} c complex number
    * @param {number} s scalar
@@ -300,6 +314,69 @@ const complex = {
       return this.divScalar(c2, c1)
     }
     throw Error(`div ${ERRORS.isNanOrNotComplexError(c1, c2)}`)
+  },
+
+  /**
+   * @param {Object} c complex number
+   * @returns {Object} complex number
+   */
+  sqrt(c) {
+    if(this.isComplex(c)) {
+      if(c.im === 0) {
+        if(common.isNeg(c.re)) {
+          return this.create(0, Math.sqrt(-c.re))
+        }
+        return this.create(Math.sqrt(c.re), 0)
+      }
+      if(c.re === 0) {
+        /**
+         * FORMULA:
+         * sqrt(x*i) = pow((x*i),(1/2)) = pow(x,(1/2)) * pow(i,(1/2))
+         */
+        const sqrtIm = this.SqrtIm() // get root of i
+        let sqrtSc // get root of scalar
+        if(common.isNeg(c.im)) {
+          sqrtSc = this.create(0, Math.sqrt(-c.im))
+        } else {
+          sqrtSc = this.create(Math.sqrt(c.im), 0)
+        }
+        // return product of roots
+        return this.mult(sqrtIm, sqrtSc)
+      }
+      
+      /**
+       * IDEA:
+       * a + b*i = c.re + c.im*i
+       * a + b*i = pow((p + q*i),2)
+       * 
+       * We want to know p & q
+       * 
+       * FORMULA:
+       * sqrt(a + b*i) = 
+       *  sqrt((sqrt(pow(a,2) + pow(b,2)) + a)/2) 
+       *  + 
+       *  i * sqrt((sqrt(pow(a,2) + pow(b,2)) - a)/2)
+       */
+      const rePow = Math.pow(c.re,2)
+      const imPow = Math.pow(c.im,2)
+      const sqrt_rePow_imPow = Math.sqrt(rePow + imPow)
+      const sign = common.isNeg(c.im) ? -1 : 1
+
+      const re_numerator = sqrt_rePow_imPow + c.re
+      const re = Math.sqrt(re_numerator/2)
+
+      const im_numerator = sqrt_rePow_imPow - c.re
+      const im = sign * Math.sqrt(im_numerator/2)
+
+      return this.create(re, im)
+    }
+    if(common.isScalar(c)) {
+      if(common.isNeg(c)) {
+        return this.create(0, Math.sqrt(-c))
+      }
+      return this.create(Math.sqrt(c), 0)
+    }
+    throw Error(`sqrt ${ERRORS.isNanOrNotComplexError(c)}`)
   },
 }
 
