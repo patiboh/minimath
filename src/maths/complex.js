@@ -121,7 +121,7 @@ const complex = {
         re = a.re
         im = a.im
       }
-      throw Error(`toString - ${re} and/or ${im} are NaN`)
+      throw Error(`toString - ${ERRORS.isNanError(re, im)}`)
     }
     // TODO : cleanup
     let reString = re
@@ -180,7 +180,7 @@ const complex = {
     const math = this
     if(im === null) {
       if(re && !common.isScalar(re)) {
-        throw Error(`create - ${re} is NaN`)
+        throw Error(`create - ${ERRORS.isNanError(re)}`)
       }
       im = 0
     }
@@ -188,7 +188,7 @@ const complex = {
       re = 0
     }
     if(!common.isScalar(re) && !common.isScalar(im)) {
-      throw Error(`create - ${re} and ${im} are NaN`)
+      throw Error(`create - ${ERRORS.isNanError(re, im)}`)
     }
     return {
       re,
