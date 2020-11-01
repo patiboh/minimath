@@ -85,6 +85,8 @@ function testComplex() {
   const BNeg = complex.create(-4,-3) //(-4-3i)
   const B2 = complex.create(7,24) //(4+3i)*(4+3i)
   const B3 = complex.create(-44,117) //(4+3i)*(4+3i)*(4+3i)
+  const B4 = complex.create(-527, 336) // (4+3i)*(4+3i)*(4+3i)*(4+3i)
+  const B5 = complex.create(-3116, -237) // (4+3i)*(4+3i)*(4+3i)*(4+3i)*(4+3i)
   const C = complex.create(2,1)
   const G = complex.create(8,-6)
 
@@ -170,6 +172,24 @@ function testComplex() {
     assert(results, complex, complex.equals, complex.sqrt)
   }
   test_sqrt()
+
+  function test_pow() {
+    const pow_2_actual = complex.pow(B, 2)
+    const pow_3_actual = complex.pow(B, 3)
+    const pow_4_actual = complex.pow(B, 4)
+    const pow_5_actual = complex.pow(B, 5)
+    const pow_3_expected = B3
+    const pow_2_expected = B2
+    const pow_4_expected = B4
+    const pow_5_expected = B5
+    const results = [
+      [pow_2_actual, pow_2_expected],
+      [pow_3_actual, pow_3_expected],
+      [pow_4_actual, pow_4_expected],
+      [pow_5_actual, pow_5_expected],
+    ]
+    assert(results, complex, complex.equals, complex.pow)
+  }  test_pow()
 
 }
 

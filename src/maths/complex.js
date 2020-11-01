@@ -378,6 +378,28 @@ const complex = {
     }
     throw Error(`sqrt ${ERRORS.isNanOrNotComplexError(c)}`)
   },
+
+  /**
+   * @param {number} p exponent / power
+   * @returns {Object} complex number
+   */
+  powIm(p) {
+    return this.pow(this.Im(), p)
+  },
+  /**
+   * @param {Object} c complex number
+   * @param {number} p exponent / power
+   * @returns {Object} complex number
+   */
+  pow(c, p) {
+    if(p === 0) {
+      return this.create(1, 0)
+    }
+    if(p === 1) {
+      return c
+    }
+    return this.mult(c, this.pow(c, p-1))
+  },
 }
 
 module.exports = complex
