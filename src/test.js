@@ -77,6 +77,13 @@ function testComplex() {
   console.log(`Module: complex`);
   console.log(`---------------`);
 
+  const i = complex.Im()
+  const iNeg = complex.create(0, -1)
+  const complexZero = complex.create(0, 0)
+  const A = complex.create(0,6)
+  const B = complex.create(4,3) //(4+3i)
+  const BNeg = complex.create(-4,-3) //(-4-3i)
+
   function test_create() {
     const create_actual = complex.create(5, -4)
     const create_expected_re = 5
@@ -90,6 +97,30 @@ function testComplex() {
     assert(results, complex, common.equals, complex.create)
   }
   test_create()
+
+
+  function test_add() {
+    const add_i_A_actual = complex.add(i, A)
+    const add_i_A_expected = complex.create(0, 7)
+    const add_A_B_actual = complex.add(A, B)
+    const add_A_B_expected = complex.create(4, 9)
+    const add_i_zero_actual = complex.add(i, 0)
+    const add_i_zero_expected = i
+    const add_i_iNeg_actual = complex.add(i, iNeg)
+    const add_i_iNeg_expected = complexZero
+    const add_B_BNeg_actual = complex.add(B, BNeg)
+    const add_B_BNeg_expected = 0
+
+    const results = [
+      [add_i_A_actual, add_i_A_expected],
+      [add_A_B_actual, add_A_B_expected],
+      [add_i_zero_actual, add_i_zero_expected],
+      [add_i_iNeg_actual, add_i_iNeg_expected],
+      [add_B_BNeg_actual, add_B_BNeg_expected],
+    ]
+    assert(results, complex, complex.equals, complex.add)
+  }
+  test_add()
 }
 
 testCommon()

@@ -1,7 +1,48 @@
 // @ts-check
 const common = require('./common')
 
+/**
+ * @param {string|Object|number} s1
+ * @param {string|Object|number|null} s2
+ * @returns {string}
+ */
+function subject (s1, s2=null) {
+  let subject;
+  if(!s2) {
+    subject = `${s1}`
+  } else {
+    subject = `one or both of ${s1} and ${s2}`
+  }
+  return subject
+}
+
+const ERRORS = {
+  /**
+   * @param {string|Object|number} c1
+   * @param {string|Object|number|null} c2
+   * @returns {string}
+   */
+  isNanError: (c1, c2=null) => `- ${subject(c1, c2)} is not a number`,
+
+  /**
+   * @param {string|Object|number} c1
+   * @param {string|Object|number|null} c2
+   * @returns {string}
+   */
+  isNanOrNotComplexError: (c1, c2=null) => `- ${subject(c1, c2)} is neither an integer nor a complex number`,
+}
+
 const complex = {
+  /**
+   * Imaginary constant i
+   * @returns {Object} complex number
+   */
+  Im() {
+    if(!this._Im) {
+      this._Im = this.create(0, 1)
+    }
+    return this._Im
+  },
   /**
    * @param {number|Object} n
    * @returns {boolean}
@@ -12,6 +53,36 @@ const complex = {
     }
     return false
   },
+
+  /**
+   * @param {Object} c1
+   * @param {Object} c2
+   * @returns {boolean}
+   */
+  equals(c1, c2) {
+    if(this.isComplex(c1) && this.isComplex(c2)) {
+      return c1.re === c2.re && c1.im === c2.im
+    }
+    else if(common.isScalar(c1) && common.isScalar(c2)) {
+      return c1 === c2
+    }
+    else if(this.isComplex(c1) && common.isScalar(c2)) {
+      if(c1.im === 0) {
+        return c1.re === c2;
+      }
+      return false
+    }
+    else if(common.isScalar(c1) && this.isComplex(c2)) {
+      if(c2.im === 0) {
+        return c2.re === c1;
+      }
+      return false
+    }
+    else {
+      throw Error(`equals ${ERRORS.isNanOrNotComplexError(c1, c2)}`)
+    }
+  },
+
   /**
    * @param {Object | number} a
    * @param {number} b
@@ -56,6 +127,7 @@ const complex = {
     }
     return `${reString}${operator}${imString}`
   },
+   
  /**
    * @param {number|null} re real part of complex number
    * @param {number|null} im imaginary part of complex number
@@ -80,6 +152,35 @@ const complex = {
       im, // im * i
       value: math.toString(re, im),
     }
+  },
+
+  /**
+   * @param {Object} c1 complex number
+   * @param {Object} c2 complex number
+   * @returns {Object} complex number
+   */
+  add(c1, c2) {
+    let im, re;
+    if(this.isComplex(c1) && this.isComplex(c2)) {
+      re = c1.re + c2.re;
+      im = c1.im + c2.im;
+    }
+    else if(common.isScalar(c1) && common.isScalar(c2)) {
+      re = c1 + c2;
+      im = 0;
+    }
+    else if(this.isComplex(c1) && common.isScalar(c2)) {
+      re = c1.re + c2;
+      im = c1.im;
+    }
+    else if(common.isScalar(c1) && this.isComplex(c2)) {
+      re = c1 + c2.re;
+      im = c2.im;
+    }
+    else {
+      throw Error(`add ${ERRORS.isNanOrNotComplexError(c1, c2)}`)
+    }
+    return this.create(re, im)
   },
 }
 
