@@ -205,6 +205,16 @@ const complex = {
   },
 
   /**
+   * @param {Object} c1 complex number
+   * @param {Object} c2 complex number
+   * @returns {Object} complex number
+   */
+  sub(c1, c2) {
+    const neg = this.multScalar(c2, -1)
+    return this.add(c1, neg)
+  },
+  
+  /**
    * @param {Object} c complex number
    * @param {number} s scalar
    * @returns {Object} complex number
