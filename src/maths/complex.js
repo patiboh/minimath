@@ -182,6 +182,54 @@ const complex = {
     }
     return this.create(re, im)
   },
+
+  /**
+   * @param {Object} c complex number
+   * @param {number} s scalar
+   * @returns {Object} complex number
+   */
+  multScalar(c, s) {
+    const re = c.re * s
+    const im = c.im * s
+    return this.create(re, im)
+  },
+  
+  /**
+   * @param {Object} c1 complex number
+   * @param {Object} c2 complex number
+   * @returns {Object} complex number
+   */
+  multComplex(c1, c2) {
+    const re_re = c1.re * c2.re
+    const re_im = c1.re * c2.im
+    const im_re = c1.im * c2.re
+    const im_im = c1.im * c2.im
+
+    const re = re_re - im_im
+    const im = re_im + im_re
+    return this.create(re, im)
+  },
+
+  /**
+   * @param {Object} c1 complex number
+   * @param {Object} c2 complex number
+   * @returns {Object} complex number
+   */
+  mult(c1, c2) {
+    if(this.isComplex(c1) && this.isComplex(c2)) {
+      return this.multComplex(c1, c2)
+    }
+    else if(common.isScalar(c1) && common.isScalar(c2)) {
+       return this.create(c1+c2, 0)
+    }
+    else if(this.isComplex(c1) && common.isScalar(c2)) {
+      return this.multScalar(c1, c2)
+    }
+    else if(common.isScalar(c1) && this.isComplex(c2)) {
+      return this.multScalar(c2, c1)
+    }
+    throw Error(`mult ${ERRORS.isNanOrNotComplexError(c1, c2)}`)
+  },
 }
 
 module.exports = complex

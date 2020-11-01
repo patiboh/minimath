@@ -83,6 +83,14 @@ function testComplex() {
   const A = complex.create(0,6)
   const B = complex.create(4,3) //(4+3i)
   const BNeg = complex.create(-4,-3) //(-4-3i)
+  const B2 = complex.create(7,24) //(4+3i)*(4+3i)
+  const B3 = complex.create(-44,117) //(4+3i)*(4+3i)*(4+3i)
+  const C = complex.create(2,1)
+
+  const M_POS = complex.create(12,9) //3*(4+3i)
+  const M_NEG = complex.create(-12,-9) //-3*(4+3i)
+  const POS = 3
+  const NEG = -3
 
   function test_create() {
     const create_actual = complex.create(5, -4)
@@ -97,7 +105,6 @@ function testComplex() {
     assert(results, complex, common.equals, complex.create)
   }
   test_create()
-
 
   function test_add() {
     const add_i_A_actual = complex.add(i, A)
@@ -121,6 +128,27 @@ function testComplex() {
     assert(results, complex, complex.equals, complex.add)
   }
   test_add()
+
+  function test_mult() {
+    const mult_i_C_actual = complex.mult(i, C)
+    const mult_i_C_expected = complex.create(-1, 2)
+    const mult_B_B2_actual = complex.mult(B, B2)
+    const mult_B_B2_expected = B3
+    const mult_B_POS_actual = complex.mult(B, POS)
+    const mult_B_POS_expected = M_POS
+    const mult_B_NEG_actual = complex.mult(B, NEG)
+    const mult_B_NEG_expected = M_NEG
+
+    const results = [
+      [mult_i_C_actual, mult_i_C_expected],
+      [mult_B_B2_actual, mult_B_B2_expected],
+      [mult_B_POS_actual, mult_B_POS_expected],
+      [mult_B_NEG_actual, mult_B_NEG_expected],
+    ]
+    assert(results, complex, complex.equals, complex.mult)
+  }
+  test_mult()
+
 }
 
 testCommon()
