@@ -400,6 +400,26 @@ const complex = {
     }
     return this.mult(c, this.pow(c, p-1))
   },
+
+    /**
+   * Returns absolute value of a complex number (~ magnitude)
+   * @param {Object} c complex number
+   * @returns {number}
+   */
+  abs(c) {
+    if(this.isComplex(c)) {
+      const conjugate = this.conjugate(c);
+      const product = this.multComplex(c, conjugate)
+      return this.sqrt(product)
+    }
+    if(common.isScalar(c)) {
+      if(common.isNeg(c)) {
+        return this.create(-c, 0)
+      }
+      return this.create(c, 0)
+    }
+    throw Error(`abs ${ERRORS.isNanOrNotComplexError(c)}`)
+  },
 }
 
 module.exports = complex

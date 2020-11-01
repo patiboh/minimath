@@ -191,6 +191,16 @@ function testComplex() {
     assert(results, complex, complex.equals, complex.pow)
   }  test_pow()
 
+  function test_abs() {
+    const abs_G_actual = complex.abs(G)
+    const abs_G_expected = complex.create(10, 0)
+    const results = [
+      [abs_G_actual, abs_G_expected],
+    ]
+    assert(results, complex, complex.equals, complex.abs)
+  }
+  test_abs()
+
 }
 
 testCommon()
