@@ -149,6 +149,16 @@ function testComplex() {
   }
   test_mult()
 
+  // TODO test more + div by zero
+  function test_div() {
+    const div_A_B_actual = complex.div(A, B)
+    const div_A_B_expected = complex.create(0.72, 0.96)
+    const results = [
+      [div_A_B_actual, div_A_B_expected],
+    ]
+    assert(results, complex, complex.equals, complex.div)
+  }
+  test_div()
 }
 
 testCommon()

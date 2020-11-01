@@ -30,6 +30,13 @@ const ERRORS = {
    * @returns {string}
    */
   isNanOrNotComplexError: (c1, c2=null) => `- ${subject(c1, c2)} is neither an integer nor a complex number`,
+
+  /**
+   * @param {string|Object|number} c1
+   * @param {string|Object|number|null} c2
+   * @returns {string}
+   */
+  divByZeroError: (c1, c2=null) => `- ${subject(c1, c2)} is 0: division by zero not allowed`,
 }
 
 const complex = {
@@ -193,7 +200,7 @@ const complex = {
     const im = c.im * s
     return this.create(re, im)
   },
-  
+
   /**
    * @param {Object} c1 complex number
    * @param {Object} c2 complex number
@@ -229,6 +236,70 @@ const complex = {
       return this.multScalar(c2, c1)
     }
     throw Error(`mult ${ERRORS.isNanOrNotComplexError(c1, c2)}`)
+  },
+
+  /**
+   * @param {Object} c complex number
+   * @returns {Object} complex number
+   */
+  conjugate(c) {
+    if(this.isComplex(c)) {
+      return this.create(c.re, -c.im)
+    }
+    if(common.isScalar(c)) {
+      return this.create(c, 0)
+    }
+    throw Error(`conjugate ${ERRORS.isNanOrNotComplexError(c)}`)
+  },
+  
+  /**
+   * @param {Object} c complex number
+   * @param {number} s scalar
+   * @returns {Object} complex number
+   */
+  divScalar(c, s) {
+    if(s === 0) {
+      throw Error(`divScalar ${ERRORS.divByZeroError(s)}`)
+    }
+    const re = c.re / s
+    const im = c.im / s
+    return this.create(re, im)
+  },
+
+  /**
+   * @param {Object} numerator complex number
+   * @param {Object} denominator complex number
+   * @returns {Object} complex number
+   */
+  divComplex(numerator, denominator) {
+    if(denominator.re === 0 && denominator.im === 0) {
+      throw Error(`divComplex ${ERRORS.divByZeroError(denominator)}`)
+    }
+    const d_conjugate = this.conjugate(denominator)
+    const num = this.multComplex(numerator, d_conjugate)
+    const den = this.multComplex(denominator, d_conjugate)
+    return this.create(num.re/den.re, num.im/den.re)
+  },
+  
+  /**
+   * @param {Object} c1 complex number
+   * @param {Object} c2 complex number
+   * @returns {Object} complex number
+   */
+  div(c1, c2) {
+    if(this.isComplex(c1) && this.isComplex(c2)) {
+      return this.divComplex(c1, c2)
+    }
+    else if(common.isScalar(c1) && common.isScalar(c2)) {
+      return this.create(c1/c2, 0)
+    }
+    else if(this.isComplex(c1) && common.isScalar(c2)) {
+      return this.divScalar(c1, c2)
+    }
+    else if(common.isScalar(c1) && this.isComplex(c2)) {
+      return this.divScalar(c2, c1)
+    }
+    throw Error(`div ${ERRORS.isNanOrNotComplexError(c1, c2)}`)
   },
 }
 
