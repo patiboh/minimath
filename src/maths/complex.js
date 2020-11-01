@@ -148,6 +148,28 @@ const complex = {
     }
     return `${reString}${operator}${imString}`
   },
+  
+  /**
+   * @param {string} s string representation of complex number: a+bi
+   * @returns {Object} complex number
+   */
+  fromString(s) {
+    if(common.isScalar(Number(s))) {
+      return this.create(Number(s), 0)
+    }
+    const complexRegex = /(?<signRe>[-]{0,1})(?<re>\d+)[' ']{0,1}(?<op>[+|-]+)[' ']{0,1}(?<signIm>[-]{0,1})(?<im>\d+)(?<imString>i)/g
+    const match = complexRegex.exec(s)
+    if(!match) {
+      throw Error(`fromString ${ERRORS.isNanOrNotComplexError(s)}`)
+    }
+    const tokens = match['groups']
+    const re = Number(tokens.re)
+    const im = Number(tokens.im)
+    const signOp = tokens.op === '-' ? -1 : 1
+    const signIm = tokens.signIm === '-' ? -1 : 1
+    const signRe = tokens.signRe === '-' ? -1 : 1
+    return this.create(signRe*re, signOp*signIm*im)
+  },
    
  /**
    * @param {number|null} re real part of complex number
@@ -213,7 +235,7 @@ const complex = {
     const neg = this.multScalar(c2, -1)
     return this.add(c1, neg)
   },
-  
+
   /**
    * @param {Object} c complex number
    * @param {number} s scalar

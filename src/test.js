@@ -109,6 +109,36 @@ function testComplex() {
   }
   test_create()
 
+  function test_fromString() {
+    const S = B //(4+3i)
+    const S_NEG = complex.create(-4,3) //(-4+3i)
+    const S_CONJ = complex.create(4,-3) //(4-3i)
+    const S_SCALAR = complex.create(-4,0) //(-4)
+    const S1 = "4 + 3i"
+    const S2 = "4+3i"
+    const S3 = "-4 +3i"
+    const S4 = "4- 3i"
+    const S5 = "-4"
+    const fromString_S1_actual = complex.fromString(S1)
+    const fromString_S2_actual = complex.fromString(S2)
+    const fromString_S3_actual = complex.fromString(S3)
+    const fromString_S4_actual = complex.fromString(S4)
+    const fromString_S5_actual = complex.fromString(S5)
+    const fromString_S1_S2_expected = S
+    const fromString_S3_expected = S_NEG
+    const fromString_S4_expected = S_CONJ
+    const fromString_S5_expected = S_SCALAR
+    const results = [
+      [fromString_S1_actual, fromString_S1_S2_expected],
+      [fromString_S2_actual, fromString_S1_S2_expected],
+      [fromString_S3_actual, fromString_S3_expected],
+      [fromString_S4_actual, fromString_S4_expected],
+      [fromString_S5_actual, fromString_S5_expected],
+    ]
+    assert(results, complex, complex.equals, complex.fromString)
+  }
+  test_fromString()
+
   function test_add() {
     const add_i_A_actual = complex.add(i, A)
     const add_i_A_expected = complex.create(0, 7)
