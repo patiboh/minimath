@@ -82,20 +82,20 @@ const complex = {
    */
   equals(c1, c2) {
     if(this.isComplex(c1) && this.isComplex(c2)) {
-      return c1.re === c2.re && c1.im === c2.im
+      return common.equals(c1.re, c2.re) &&  common.equals(c1.im,c2.im)
     }
     else if(common.isScalar(c1) && common.isScalar(c2)) {
-      return c1 === c2
+      return common.equals(c1, c2)
     }
     else if(this.isComplex(c1) && common.isScalar(c2)) {
       if(c1.im === 0) {
-        return c1.re === c2;
+        return common.equals(c1.re, c2);
       }
       return false
     }
     else if(common.isScalar(c1) && this.isComplex(c2)) {
       if(c2.im === 0) {
-        return c2.re === c1;
+        return  common.equals(c2.re, c1);
       }
       return false
     }
