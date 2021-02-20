@@ -236,8 +236,8 @@ const complex = {
   },
 
   /**
-   * @param {Object} c1 complex number
-   * @param {Object} c2 complex number
+   * @param {number|Object} c1 real or complex number
+   * @param {number|Object} c2 real or complex number
    * @returns {Object} complex number
    */
   mult(c1, c2) {
@@ -300,8 +300,8 @@ const complex = {
   },
   
   /**
-   * @param {Object} c1 complex number
-   * @param {Object} c2 complex number
+   * @param {number|Object} c1 real or complex number
+   * @param {number|Object} c2 real or complex number
    * @returns {Object} complex number
    */
   div(c1, c2) {
@@ -321,7 +321,7 @@ const complex = {
   },
 
   /**
-   * @param {Object} c complex number
+   * @param {number|Object} c real or complex number
    * @returns {Object} complex number
    */
   sqrt(c) {
@@ -392,7 +392,7 @@ const complex = {
   },
 
   /**
-   * @param {Object} c complex number
+   * @param {number|Object} c real or complex number
    * @param {number} p exponent / power
    * @returns {Object} complex number
    */
@@ -408,7 +408,7 @@ const complex = {
 
     /**
    * Returns absolute value of a complex number (~ magnitude)
-   * @param {Object} c complex number
+   * @param {number|Object} c real or complex number
    * @returns {number}
    */
   abs(c) {
