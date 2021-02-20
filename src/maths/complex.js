@@ -137,7 +137,7 @@ const complex = {
         imString= `${im}i`
       }
     } else{
-      operator = common.isNeg(im) ? ' - ' : ' + '; 
+      operator = Math.sign(im) === -1 ? ' - ' : ' + '; 
       if(Math.abs(im) === 1) {
         imString= 'i'
       } else if(im !== 0) {
@@ -355,7 +355,7 @@ const complex = {
   sqrt(c) {
     if(this.isComplex(c)) {
       if(c.im === 0) {
-        if(common.isNeg(c.re)) {
+        if(Math.sign(c.re) === -1) {
           return this.create(0, Math.sqrt(-c.re))
         }
         return this.create(Math.sqrt(c.re), 0)
@@ -367,7 +367,7 @@ const complex = {
          */
         const sqrtIm = this.SqrtIm() // get root of i
         let sqrtSc // get root of scalar
-        if(common.isNeg(c.im)) {
+        if(Math.sign(c.im) === -1) {
           sqrtSc = this.create(0, Math.sqrt(-c.im))
         } else {
           sqrtSc = this.create(Math.sqrt(c.im), 0)
@@ -392,7 +392,7 @@ const complex = {
       const rePow = Math.pow(c.re,2)
       const imPow = Math.pow(c.im,2)
       const sqrt_rePow_imPow = Math.sqrt(rePow + imPow)
-      const sign = common.isNeg(c.im) ? -1 : 1
+      const sign = Math.sign(c.im)
 
       const re_numerator = sqrt_rePow_imPow + c.re
       const re = Math.sqrt(re_numerator/2)
@@ -403,7 +403,7 @@ const complex = {
       return this.create(re, im)
     }
     if(common.isScalar(c)) {
-      if(common.isNeg(c)) {
+      if(Math.sign(c) === -1) {
         return this.create(0, Math.sqrt(-c))
       }
       return this.create(Math.sqrt(c), 0)
@@ -445,7 +445,7 @@ const complex = {
       return this.sqrt(product)
     }
     if(common.isScalar(c)) {
-      if(common.isNeg(c)) {
+      if(Math.sign(c) === -1) {
         return this.create(-c, 0)
       }
       return this.create(c, 0)
