@@ -8,6 +8,7 @@ const common = {
   round(n, decimals) {
     return Number(Math.round(n+'e'+decimals)+'e-'+decimals);
   },
+
   /**
    * @param {number|Object} n
    * @returns {boolean}

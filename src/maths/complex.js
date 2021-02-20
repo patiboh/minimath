@@ -105,7 +105,7 @@ const complex = {
   },
 
   /**
-   * @param {Object | number} a
+   * @param {number|Object} a
    * @param {number} b
    * @returns {string}
    */
@@ -418,6 +418,7 @@ const complex = {
   powIm(p) {
     return this.pow(this.Im(), p)
   },
+
   /**
    * @param {Object} c complex number
    * @param {number} p exponent / power
@@ -464,16 +465,17 @@ const complex = {
     }
     return this.create(Math.cos(o), Math.sin(o))
   },
+
   /**
    * Rotates a complex number by the angle o (using Math.PI notation ??)
    * 
    * @param {number} o angle
-   * @param {Object} c complex number (point c)
+   * @param {Object} p point (2D plane) represented as a complex number
    * @returns {Object} rotated point c'
    */
-  rotate(c, o) {
+  rotate(p, o) {
     const rotor = this.rotor(o)
-    return this.mult(rotor, c)
+    return this.mult(rotor, p)
   },
 }
 
