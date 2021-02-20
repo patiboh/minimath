@@ -10,9 +10,13 @@ const COMPLEX = {
 function assert(results, lib, compareFn, testFn) {
   const errors = []
   results.forEach(([actual, expected]) => {
-    if(!compareFn.call(lib, actual, expected)) {
-      errors.push([actual, expected])
-    } 
+    try {
+      if(!compareFn.call(lib, actual, expected)) {
+        errors.push([actual, expected])
+      }
+    } catch(e) {
+      errors.push([e, expected])
+    }
   })
   if(errors.length > 0) {
     console.log(`❌ ${testFn.name} fail`);
