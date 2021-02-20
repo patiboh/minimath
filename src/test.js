@@ -95,6 +95,26 @@ function testComplex() {
   const POS = 3
   const NEG = -3
 
+  function test_isComplex() {
+    const isComplex_true_actual = complex.isComplex(COMPLEX)
+    const isComplex_true_expected = true
+    const isComplex_false_actual = complex.isComplex(-4)
+    const isComplex_false_expected = false
+    const isComplex_false_string_expected = complex.isComplex("blah")
+    const isComplex_false_string_actual = false
+    const isComplex_true_string_actual = complex.isComplex( "5 - 4i")
+    const isComplex_true_string_expected = true
+    const results = [
+      [isComplex_true_actual, isComplex_true_expected],
+      [isComplex_false_actual, isComplex_false_expected],
+      [isComplex_true_actual, isComplex_true_expected],
+      [isComplex_false_string_actual, isComplex_false_string_expected],
+      [isComplex_true_string_actual, isComplex_true_string_expected],
+    ]
+    assert(results, complex, common.equals, complex.isComplex)
+  }
+  test_isComplex()
+
   function test_create() {
     const create_actual = complex.create(5, -4)
     const create_expected_re = 5

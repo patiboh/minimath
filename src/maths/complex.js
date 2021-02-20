@@ -26,12 +26,21 @@ const complex = {
     }
     return this._SqrtIm
   },
-  
+
   /**
-   * @param {number|Object} n
+   * @param {string|number|Object} n
    * @returns {boolean}
    */
   isComplex(n) {
+    const math = this
+    if(typeof n === 'string') {
+      try {
+        const c = math.fromString(n)
+        return math.isComplex(c)
+      } catch (e) {
+        return false
+      }
+    }
     if(typeof n === 'object' && n.hasOwnProperty('re') && n.hasOwnProperty('im') )  {
       return common.isScalar(n.re) && common.isScalar(n.im)
     }
