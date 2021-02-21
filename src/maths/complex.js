@@ -438,8 +438,8 @@ const complex = {
   /**
    * Rotates a point p (= number on the complex plane) by the angle o (using radians)
    * @param {number} o angle
-   * @param {Object} p point (2D plane) represented as a complex number
-   * @returns {Object} rotated point c'
+   * @param {Object} p point
+   * @returns {Object} rotated point p'
    */
   rotate(p, o) {
     const rotor = this.rotor(o)
