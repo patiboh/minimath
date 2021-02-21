@@ -4,7 +4,7 @@
  * @param {number|Object} n
  * @returns {boolean}
  */
-  export function round(n, decimals) {
+export function round(n, decimals) {
   return Number(Math.round(n+'e'+decimals)+'e-'+decimals);
 }
 
