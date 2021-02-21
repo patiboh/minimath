@@ -301,10 +301,5 @@ function testComplex() {
 
 console.log('Testing package - ' + name);
 console.log('version ' + version);
-console.log('common ');
-console.log(common);
-console.log('complex ');
-console.log(complex);
-
 testCommon()
 testComplex()
