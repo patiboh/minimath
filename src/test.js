@@ -1,5 +1,5 @@
-const common = require('./maths/common')
-const complex = require('./maths/complex')
+import common from './maths/common'
+import complex from './maths/complex'
 
 const COMPLEX = {
   re: 0,
@@ -296,5 +296,7 @@ function testComplex() {
   test_rotate()
 }
 
-testCommon()
-testComplex()
+export default function test() {
+  testCommon()
+  testComplex()
+}

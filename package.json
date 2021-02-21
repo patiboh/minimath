@@ -2,7 +2,8 @@
   "name": "minimath",
   "version": "0.0.1",
   "description": "Maths library",
-  "main": "src/index.js",
+  "main": "src/main.js",
+  "type": "module",
   "scripts": {
     "test": "node src/test.js"
   },
