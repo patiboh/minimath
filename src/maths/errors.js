@@ -13,7 +13,7 @@ function subject (s1, s2=null) {
   return subject
 }
 
-const ERRORS = {
+export const ERRORS = {
   /**
    * @param {string|Object|number} c1
    * @param {string|Object|number|null} c2
@@ -34,7 +34,4 @@ const ERRORS = {
    * @returns {string}
    */
   divByZeroError: (c1, c2=null) => `- ${subject(c1, c2)} is 0: division by zero not allowed`,
-}
-module.exports = {
-  ERRORS
 }

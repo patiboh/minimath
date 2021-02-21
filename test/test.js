@@ -1,11 +1,14 @@
-const common = require('./maths/common')
-const complex = require('./maths/complex')
+const minimath = require('..');
+const { name, version } = require('../package.json')
+global.common = minimath.common // TODO: how can I do this without global?
+global.complex = minimath.complex
 
 const COMPLEX = {
   re: 0,
   im: 1,
   value: "i"
 }
+ 
 
 function assert(results, lib, compareFn, testFn) {
   const errors = []
@@ -296,5 +299,7 @@ function testComplex() {
   test_rotate()
 }
 
+console.log('Testing package - ' + name);
+console.log('version ' + version);
 testCommon()
 testComplex()
