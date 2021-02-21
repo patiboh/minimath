@@ -418,9 +418,6 @@ const complex = {
       return this.sqrt(product)
     }
     if(common.isScalar(c)) {
-      if(Math.sign(c) === -1) {
-        return this.create(-c, 0)
-      }
       return this.create(c, 0)
     }
     throw Error(`abs ${ERRORS.isNanOrNotComplexError(c)}`)
