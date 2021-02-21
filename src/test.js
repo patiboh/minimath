@@ -104,8 +104,8 @@ function testComplex() {
     const isComplex_true_expected = true
     const isComplex_false_actual = complex.isComplex(-4)
     const isComplex_false_expected = false
-    const isComplex_false_string_expected = complex.isComplex("blah")
-    const isComplex_false_string_actual = false
+    const isComplex_false_string_actual = complex.isComplex("blah")
+    const isComplex_false_string_expected = false
     const isComplex_true_string_actual = complex.isComplex( "5 - 4i")
     const isComplex_true_string_expected = true
     const results = [
