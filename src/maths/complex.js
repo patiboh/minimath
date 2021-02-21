@@ -418,9 +418,6 @@ const complex = {
       return this.sqrt(product)
     }
     if(common.isScalar(c)) {
-      if(Math.sign(c) === -1) {
-        return this.create(-c, 0)
-      }
       return this.create(c, 0)
     }
     throw Error(`abs ${ERRORS.isNanOrNotComplexError(c)}`)
@@ -439,8 +436,7 @@ const complex = {
   },
 
   /**
-   * Rotates a complex number by the angle o (using Math.PI notation ??)
-   * 
+   * Rotates a point p (= number on the complex plane) by the angle o (using radians)
    * @param {number} o angle
    * @param {Object} p point (2D plane) represented as a complex number
    * @returns {Object} rotated point c'
