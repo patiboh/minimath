@@ -4,7 +4,7 @@
   "description": "Maths library",
   "main": "dist/minimath.cjs.js",
   "module": "dist/minimath.esm.js",
-  "browser": "dist/minimath.umd.js",
+  "browser": "dist/minimath.umd.min.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -18,8 +18,7 @@
   "author": "Patricia Boh (https://github.com/patiboh)",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "17.1.0",
-    "@rollup/plugin-node-resolve": "11.2.0",
+    "@rollup/plugin-json": "4.1.0",
     "rollup": "2.39.0",
     "rollup-plugin-terser": "7.0.2"
   },

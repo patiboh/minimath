@@ -1,5 +1,5 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import {terser} from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 export default [
@@ -8,12 +8,9 @@ export default [
     output: {
       name: 'minimath',
       file: pkg.browser,
-      format: 'umd'
+      format: 'umd',
+      plugins: [ json(), terser() ]
     },
-    plugins: [
-      resolve(), // so Rollup can find `ms`
-      commonjs() // so Rollup can convert `ms` to an ES module
-    ]
   },
 
   // CommonJS (for Node) and ES module (for bundlers) build.
@@ -25,8 +22,14 @@ export default [
   {
     input: 'src/main.js',
     output: [
-      { file: pkg.main, format: 'cjs' },
-      { file: pkg.module, format: 'es' }
-    ]
+      { 
+        file: pkg.main,
+        format: 'cjs',
+      },
+      {
+        file: pkg.module,
+        format: 'es',
+      },
+    ],
   }
 ]
