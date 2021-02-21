@@ -212,7 +212,7 @@ export function sub(c1, c2) {
  * @param {number} s scalar
  * @returns {Object} complex number
  */
-export function multScalar(c, s) {
+function multScalar(c, s) {
   const re = c.re * s
   const im = c.im * s
   return create(re, im)
@@ -223,7 +223,7 @@ export function multScalar(c, s) {
  * @param {Object} c2 complex number
  * @returns {Object} complex number
  */
-export function multComplex(c1, c2) {
+function multComplex(c1, c2) {
   const re_re = c1.re * c2.re
   const re_im = c1.re * c2.im
   const im_re = c1.im * c2.re
@@ -274,7 +274,7 @@ export function conj(c) {
  * @param {number} s scalar
  * @returns {Object} complex number
  */
-export function divScalar(c, s) {
+function divScalar(c, s) {
   if(s === 0) {
     throw Error(`divScalar ${ERRORS.divByZeroError(s)}`)
   }
@@ -288,7 +288,7 @@ export function divScalar(c, s) {
  * @param {Object} denominator complex number
  * @returns {Object} complex number
  */
-export function divComplex(numerator, denominator) {
+function divComplex(numerator, denominator) {
   if(denominator.re === 0 && denominator.im === 0) {
     throw Error(`divComplex ${ERRORS.divByZeroError(denominator)}`)
   }
